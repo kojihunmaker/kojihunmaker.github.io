@@ -108,7 +108,7 @@
 
   .shots{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 4px;}
   .shots figure{margin:0;flex:1;min-width:140px;}
-  .shots img{width:100%;display:block;border:1px solid var(--line);border-radius:6px;object-fit:cover;max-height:180px;}
+  .shots img{width:100%;display:block;border:1px solid var(--line);border-radius:6px;object-fit:contain;max-height:220px;background:var(--bg);}
   .shots figcaption{color:var(--ink-faint);font-size:11px;margin-top:6px;text-align:center;}
 </style>
 </head>
@@ -152,7 +152,6 @@
 <div class="backdrop" id="backdrop" onclick="if(event.target===this)closeProject()">
   <div class="win">
     <div class="win-bar">
-      <div class="dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
       <div class="file" id="winFile"></div>
       <button class="close" onclick="closeProject()">✕ 닫기</button>
     </div>
@@ -197,7 +196,7 @@ const projects = {
     date: "2026.04.22 – 2026.05.10",
     role: "로봇팔 구동부 개선 · 로드셀 하드웨어 및 판정 파라미터 설정",
     github: "https://github.com/kojihunmaker/Weight-based-automatic-classification-system",
-    tags: ["STM32 F411RE","FreeRTOS","HX711","PCA9685","MG996R"],
+    tags: ["STM32 F411RE","C","FreeRTOS","HX711","PCA9685","MG996R"],
     overview: `
       <ul>
         <li>로드셀 기반 무게 측정으로 물체를 실시간 분류하는 자동화 시스템 구현</li>
