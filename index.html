@@ -105,6 +105,11 @@
   details .body p{margin:0 0 10px;}
   details .body p:last-child{margin-bottom:0;}
   details .body code{background:var(--panel);border:1px solid var(--line);padding:1px 5px;border-radius:3px;font-size:12px;}
+
+  .shots{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 4px;}
+  .shots figure{margin:0;flex:1;min-width:140px;}
+  .shots img{width:100%;display:block;border:1px solid var(--line);border-radius:6px;object-fit:cover;max-height:180px;}
+  .shots figcaption{color:var(--ink-faint);font-size:11px;margin-top:6px;text-align:center;}
 </style>
 </head>
 <body>
@@ -169,7 +174,11 @@ const projects = {
         <li>아두이노·센서 기반 판매 및 환경 데이터 자동 수집(무인화·자동화)</li>
         <li>TCP 소켓 통신을 통한 자판기-서버 간 실시간 데이터 송수신 및 MariaDB 적재</li>
         <li>STM32 스텝모터 기반 창고 재고 보충 제어 및 재고 데이터 동기화</li>
-      </ul>`,
+      </ul>
+      <div class="shots">
+        <figure><img src="vending-outside.jpg" alt="자판기 외부"><figcaption>자판기 외부</figcaption></figure>
+        <figure><img src="vending-inside.jpg" alt="자판기 내부"><figcaption>자판기 내부</figcaption></figure>
+      </div>`,
     build: `
       <p><b>서버(iot_server, C)</b> — 클라이언트(자판기) 연결마다 스레드를 생성해 다중 기기를 동시 처리. MySQL C API로 MariaDB(iotdb)와 연동해 VEND 수신 시 sales_log 기록·재고 차감, SENSOR 수신 시 sensor_log 기록.</p>
       <p><b>통신 프로토콜</b> — <code>[machine_id:PASSWD]</code> 인증 → 서버가 machine_id 조회 후 SETSTOCK 자동 응답 → 이후 VEND(판매)·SENSOR(센서값)·RESET(재고초기화) 메시지 송수신. <code>strtok(buf,"[@]")</code> 기반으로 prefix/명령/파라미터 파싱.</p>
@@ -197,7 +206,11 @@ const projects = {
       </ul>`,
     build: `
       <p><b>로봇팔 구동부 개선</b> — 기존 AD002 마이크로 서보모터의 토크 부족 문제 해결을 위해 부하가 집중되는 4번(Shoulder)·5번(Base) 관절을 고토크 MG996R로 교체. 모터 외형 치수 증가에 따른 마운트 홀 재설계, 무게중심 재배치, 베이스 지지대 강성 보강으로 진동·쏠림 방지.</p>
-      <p><b>로드셀 하드웨어 및 파라미터</b> — 로드셀을 바닥에 직접 두면 측정이 불안정해지는 문제를 받침 구조 제작으로 해결. 영점 캘리브레이션과 중앙값·EMA 필터 튜닝으로 측정 정밀도 확보, 물체 감지(25g)/해제(12g) 임계값 및 안정화(stable) 판정 기준값 설정.</p>`,
+      <p><b>로드셀 하드웨어 및 파라미터</b> — 로드셀을 바닥에 직접 두면 측정이 불안정해지는 문제를 받침 구조 제작으로 해결. 영점 캘리브레이션과 중앙값·EMA 필터 튜닝으로 측정 정밀도 확보, 물체 감지(25g)/해제(12g) 임계값 및 안정화(stable) 판정 기준값 설정.</p>
+      <div class="shots">
+        <figure><img src="robot-arm.jpg" alt="로봇팔 구동부"><figcaption>로봇팔 구동부</figcaption></figure>
+        <figure><img src="loadcell.jpg" alt="로드셀 설치 구조"><figcaption>로드셀 설치 구조</figcaption></figure>
+      </div>`,
     trouble: `
       <p><b>로드셀 잔류값 문제</b> — 물체 제거 후에도 5~15g의 잔류값이 남는 현상 발견. 로드셀 내 금속 탄성체가 완전히 복귀하지 못하는 물리적 한계로 소프트웨어 보정만으로는 완전 해결이 불가능하다고 판단, Zero Tracking을 적용해 물체 해제 후 일정 조건 충족 시 tare offset을 잔류값 방향으로 서서히 보정하도록 구현했습니다.</p>
       <p><b>하드웨어 고정 구조 시도 및 폐기</b> — 물체가 불안정하게 올려질 때 흔들림을 줄이려 고정 틀을 설계·제작했으나, 오히려 내부 금속 탄성체 변형이 커지며 값이 더 불안정해지는 것을 확인해 채택하지 않았습니다. 대신 변화량이 연속 5회 이상 ±2g 이내로 유지될 때만 값을 확정하는 stable 판정 로직을 소프트웨어로 구현해 해결했습니다.</p>`,
